@@ -1,45 +1,38 @@
-/*Styling for the buttons*/
-
-section {
-  display: table;
-}
-
-.example-label {
-  display: table-cell;
-  font-size: 14px;
-  margin-left: 8px;
-  min-width: 120px;
-}
-
-.example-button-row {
-  display: table-cell;
-  max-width: 600px;
-}
-
-.example-button-row .mat-mdc-button-base {
-  margin: 8px 8px 8px 0;
-}
-
-.example-flex-container {
+.content {
+  /* alignment */
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.example-button-container {
-  display: flex;
+  flex-direction: row;
   justify-content: center;
-  width: 120px;
+  align-items: center;
+  min-height: 100%;
+
+  /*style*/
+  background-color: white;
+  /*background-color: black;*/
+  /*background-color: lightgray;*/
+  /*color: #33806C;*/
 }
 
-/*Styling for the inputs*/
-
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+/* Styles for the left and right content areas */
+.left-side,
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
 }
 
-.example-full-width {
-  width: 100%;
+.left-side {
+  /*background-color: black;*/
+
+  /* alignment */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.right-side {
+  align-items: center;
 }
