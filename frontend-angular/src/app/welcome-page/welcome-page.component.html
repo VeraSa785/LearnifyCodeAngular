@@ -1,9 +1,11 @@
 <div class="content">
   <div class="left-side">
 <!--    Two logos, TODO: Deside which one-->
-    <img src="/learnify.svg" alt="">
-<!--    <img src="/logo.svg" height="300" width="550" alt="">-->
+<!--    <img src="/learnify.svg" alt="">-->
+    <img src="/logo.svg" height="300" width="550" alt="">
 
+    <p>Welcome to Learnify Code!</p>
+    <p>Empowering you to master algorithms and data structures, our app offers curated lessons and practical examples. Whether preparing for interviews or enhancing your skills, Learnify Code is your go-to resource for building confidence and proficiency in algorithmic problem-solving.</p>
     <p>Try without logging in!</p>
 
     <!-- Lessons button -->
@@ -29,7 +31,14 @@
         <!-- Submit button -->
         <div class="submit-button-container">
           <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+          <p>Dont have an account?</p>
+
+          <button mat-button (click)="openDialog()" type="button">Sign up</button>
+
+
         </div>
+
+
       </form>
   </div>
 </div>
