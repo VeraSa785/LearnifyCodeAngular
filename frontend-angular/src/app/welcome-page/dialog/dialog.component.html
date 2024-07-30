@@ -1,33 +1,44 @@
 <h1 mat-dialog-title>New account</h1>
 <div mat-dialog-content>
+  <form [formGroup]="form">
+    <!-- Username input field -->
+    <mat-form-field appearance="outline" class="login-input-container">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Enter your username" required>
+      <mat-error *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+        {{ getError('username') }}
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Username input field -->
-  <mat-form-field appearance="outline" class="login-input-container">
-    <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="data.username" placeholder="Enter your username" name="username" username required>
-  </mat-form-field>
+    <!-- Email input field -->
+    <mat-form-field appearance="outline" class="login-input-container">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter your email" required>
+      <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        {{ getError('email') }}
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Email input field -->
-  <mat-form-field appearance="outline" class="login-input-container">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="data.email" placeholder="Enter your email" name="email" email required>
-  </mat-form-field>
+    <!-- Password input field -->
+    <mat-form-field appearance="outline" class="login-input-container">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
+      <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        {{ getError('password') }}
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Password input field -->
-  <mat-form-field appearance="outline" class="login-input-container">
-    <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="data.password" placeholder="Enter your password" name="password" type="password" required>
-  </mat-form-field>
-
-  <!-- Repeat Password input field -->
-  <mat-form-field appearance="outline" class="login-input-container">
-    <mat-label>Repeat Password</mat-label>
-    <input matInput placeholder="Enter your password" name="password" type="password" required>
-  </mat-form-field>
-
+    <!-- Repeat Password input field -->
+    <mat-form-field appearance="outline" class="login-input-container">
+      <mat-label>Repeat Password</mat-label>
+      <input matInput formControlName="repeatPassword" placeholder="Enter your password again" type="password" required>
+      <mat-error *ngIf="form.get('repeatPassword')?.invalid && form.get('repeatPassword')?.touched">
+        {{ getError('repeatPassword') }}
+      </mat-error>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.username"
-          cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onOk()" [disabled]="form.invalid">Ok</button>
 </div>

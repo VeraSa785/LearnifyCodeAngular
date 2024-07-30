@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from "@angular/common";
-import {MatDivider} from "@angular/material/divider";
-import {MatChip, MatChipSet} from "@angular/material/chips";
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 import {
-  MatAnchor,
-  MatButton,
-  MatFabAnchor,
-  MatFabButton,
-  MatIconButton,
-  MatMiniFabButton
-} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {MatCard} from "@angular/material/card";
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from "@angular/forms";
 import {AuthService} from "../auth.service";
-import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
+import {MatDialog,MatDialogModule} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DialogComponent} from "./dialog/dialog.component";
 
@@ -28,48 +24,87 @@ export interface LoginData {
 @Component({
   selector: 'app-welcome-page',
   standalone: true,
-  imports: [CommonModule, MatDivider, MatChipSet, MatChip, MatButton, MatAnchor, MatIcon, MatMiniFabButton, MatFabButton, MatIconButton, MatFormField, MatLabel, MatInput, MatFabAnchor, ReactiveFormsModule, NgOptimizedImage, MatCard, FormsModule, MatDialogContent, MatDialogActions, MatDialogClose],
+  imports: [CommonModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule, FormsModule],
   templateUrl: './welcome-page.component.html',
   styleUrl: './welcome-page.component.css'
 })
-export class WelcomePageComponent {
+export class WelcomePageComponent implements OnInit {
+  formGroup!: FormGroup;
 
-  loginData: LoginData = {
-    email: '',
-    password: ''
-  };
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder) { }
 
-  username: string = '';
-  email: string = '';
-  password: string = '';
+  ngOnInit() {
+    this.createForm();
+  }
 
-  constructor(private authService: AuthService, private router: Router, public dialog: MatDialog) { }
+  createForm() {
+    this.formGroup = this.formBuilder.group({
+      'email': ['', Validators.required],
+      'password': ['', Validators.required],
+    });
+  }
+
+  getError(el: string): string {
+    switch (el) {
+      case 'email':
+        if (this.formGroup.get('email')?.hasError('required')) {
+          return 'Email required';
+        } else if (this.formGroup.get('email')?.hasError('email')) {
+          return 'Invalid email format';
+        }
+        break;
+      case 'pass':
+        if (this.formGroup.get('password')?.hasError('required')) {
+          return 'Password required';
+        }
+        break;
+      default:
+        return '';
+    }
+    return '';
+  }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
       data: {
-        username: this.username,
-        email: this.email,
-        password: this.password,
+        username: '',
+        email: '',
+        password: '',
+        repeatPassword: ''
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.username = result;
-      this.email = result;
-      this.password = result;
+      if (result) {
+        console.log('User data:', result);
+      }
     });
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      const success = this.authService.login(this.loginData);
+  onSubmit() {
+    if (this.formGroup.valid) {
+      const loginData: LoginData = {
+        email: this.formGroup.get('email')?.value,
+        password: this.formGroup.get('password')?.value
+      };
+      const success = this.authService.login(loginData);
       if (success) {
         this.router.navigate(['/lessons']);
       } else {
         alert('Invalid email or password');
       }
-      }
     }
+  }
 }

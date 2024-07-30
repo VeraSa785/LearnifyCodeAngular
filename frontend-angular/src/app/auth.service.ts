@@ -8,7 +8,7 @@ export class AuthService {
 
   private users = [
     { username: 'john', email: 'john@example.com', password: 'john123' },
-    { username: 'anny', email: 'jane@example.com', password: 'anny123' },
+    { username: 'anny', email: 'anny@example.com', password: 'anny123' },
     { username: 'doe', email: 'doe@example.com', password: 'doe123' }
   ];
 
@@ -17,5 +17,24 @@ export class AuthService {
   //   TODO: add API request to server
     const user = this.users.find(u => u.email === loginData.email && u.password === loginData.password);
     return !!user; // Return true if user is found, otherwise false
+  }
+
+  // TODO: implement logout
+
+  // maybe to remove, not sure about this lind of validation
+  userExists(username: string, email: string): boolean {
+    return this.users.some(u => u.username === username || u.email === email);
+  }
+
+  emailExists(email: string): boolean {
+    return this.users.some(u => u.email === email);
+  }
+
+  usernameExists(username: string): boolean {
+    return this.users.some(u => u.username === username);
+  }
+
+  addUser(username: string, email: string, password: string): void {
+    this.users.push({ username, email, password });
   }
 }
