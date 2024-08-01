@@ -10,6 +10,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
+    provideRouter(routes),
+    provideAnimationsAsync(),
     provideRouter(routes), provideAnimationsAsync(),
     provideHttpClient(withFetch()),
   ]

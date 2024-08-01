@@ -1,0 +1,68 @@
+.main-component {
+  min-height: 100vh;
+  min-width: 400px;
+  background-color: #2962FF;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  /* alignment */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for the left and right content areas */
+.main-left-container,
+.main-right-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+}
+
+.main-left-container {
+  /* alignment */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 140px;
+}
+
+.paytone-one-regular {
+  font-family: "Paytone One", sans-serif;
+  font-weight: 500;
+  font-size: 90px;
+  color: #dbdd80;
+  font-style: normal;
+}
+
+/*Styling for the right side*/
+.main-right-container {
+  align-items: center;
+}
+
+.card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.lessons-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+}
+
+.lessons-buttons button {
+  width: 100%;
+  padding: 15px;
+  background-color: #dbdd80;
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56;
+}

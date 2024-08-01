@@ -1,8 +1,17 @@
-<h1 mat-dialog-title>New account</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title class="dialog-title" >New account</h1>
+<div mat-dialog-content class="content">
   <form [formGroup]="form">
+    <p>Pick avatar:</p>
+    <div class="avatar-selection" *ngFor="let avatar of avatars; let i = index"
+         (click)="selectAvatar(i)" [class.selected]="selectedAvatar === i">
+      <img [src]="'/avatars/avatar_' + (i + 1) + '.png'"
+           alt="Avatar {{i + 1}}"
+           height="50"
+           width="50"
+           loading="lazy">
+    </div>
     <!-- Username input field -->
-    <mat-form-field appearance="outline" class="login-input-container">
+    <mat-form-field appearance="outline" class="login-input-container input username">
       <mat-label>Username</mat-label>
       <input matInput formControlName="username" placeholder="Enter your username" required>
       <mat-error *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
@@ -11,7 +20,7 @@
     </mat-form-field>
 
     <!-- Email input field -->
-    <mat-form-field appearance="outline" class="login-input-container">
+    <mat-form-field appearance="outline" class="login-input-container input">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" placeholder="Enter your email" required>
       <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
@@ -20,7 +29,7 @@
     </mat-form-field>
 
     <!-- Password input field -->
-    <mat-form-field appearance="outline" class="login-input-container">
+    <mat-form-field appearance="outline" class="login-input-container input">
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
       <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
@@ -39,6 +48,6 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">No Thanks</button>
-  <button mat-button (click)="onOk()" [disabled]="form.invalid">Ok</button>
+  <button mat-button (click)="onCancel()" class="secondary-styled-button">No Thanks</button>
+  <button mat-button (click)="onOk()" [disabled]="form.invalid" class="primary-styled-button">Ok</button>
 </div>

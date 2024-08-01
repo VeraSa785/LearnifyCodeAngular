@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {AuthService} from "../../auth.service";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
 
 @Component({
@@ -26,13 +26,16 @@ import {Router} from "@angular/router";
     ReactiveFormsModule,
     MatDialogTitle,
     MatDialogActions,
-    MatDialogContent
+    MatDialogContent,
+    NgOptimizedImage
   ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent implements OnInit {
   form!: FormGroup;
+  selectedAvatar: number | null = null;
+  avatars = Array(7).fill(0);
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +51,8 @@ export class DialogComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      repeatPassword: ['', Validators.required]
+      repeatPassword: ['', Validators.required],
+      avatar: ['']
     });
 
     this.form.valueChanges.subscribe(() => {
@@ -57,6 +61,12 @@ export class DialogComponent implements OnInit {
 
     // Initial check to set errors correctly on load
     this.updateErrorMessages();
+  }
+
+  selectAvatar(index: number): void {
+    this.selectedAvatar = index;
+    const avatarUrl = `/avatars/avatar_${index + 1}.png`;
+    this.form.get('avatar')?.setValue(avatarUrl);
   }
 
   updateErrorMessages() {
@@ -89,16 +99,17 @@ export class DialogComponent implements OnInit {
   onOk(): void {
     this.updateErrorMessages();
     if (this.form.valid) {
-      const username = this.form.get('username')?.value;
-      const email = this.form.get('email')?.value;
-      const password = this.form.get('password')?.value;
-
-      console.log('User data to be added:', { username, email, password });
-
-      this.authService.addUser(username, email, password);
-      console.log('User added successfully');
-      this.dialogRef.close({ username, email, password });
-      this.router.navigate(['/lessons']);
+      const { username, email, password } = this.form.value;
+      this.authService.addUser(username, email, password).subscribe({
+        next: (res) => {
+          console.log('User added successfully', res);
+          this.dialogRef.close({ username, email, password });
+          this.router.navigate(['/lessons']);
+        },
+        error: (err) => {
+          console.error('Failed to add user', err);
+        }
+      });
     } else {
       console.log('Form contains errors:', this.form.errors);
     }

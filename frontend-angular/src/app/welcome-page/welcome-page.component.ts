@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -31,7 +31,7 @@ export interface LoginData {
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule, FormsModule],
+    MatDialogModule, FormsModule, NgOptimizedImage],
   templateUrl: './welcome-page.component.html',
   styleUrl: './welcome-page.component.css'
 })
@@ -46,6 +46,10 @@ export class WelcomePageComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+  }
+
+  navigateToLessons(): void {
+    this.router.navigate(['/lessons']);
   }
 
   createForm() {

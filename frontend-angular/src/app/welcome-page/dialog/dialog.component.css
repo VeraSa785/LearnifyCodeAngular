@@ -1,0 +1,38 @@
+.dialog-title{
+  font-family: "Paytone One", sans-serif;
+  font-size: 30px;
+  color: #2962FF;
+  font-style: normal;
+  margin: 0 0 0;
+}
+
+.input {
+  padding-bottom: 5px;
+}
+
+.username {
+  padding-top: 5px;
+}
+
+.primary-styled-button {
+  padding: 15px;
+  background-color: #dbdd80 !important;
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56 !important;
+}
+
+/* Styling for disabled state */
+.primary-styled-button[disabled] {
+  background-color: #e3e3e3 !important;
+  color: #757575 !important;
+}
+
+.secondary-styled-button {
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56 !important;
+}
+
+.secondary-styled-button:hover {
+  background-color: #dbdd80;
+  color: #ffffff;
+}
