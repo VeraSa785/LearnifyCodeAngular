@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {WelcomePageComponent} from "./welcome-page/welcome-page.component";
 import {LessonsPageComponent} from "./lessons-page/lessons-page.component";
+import { ChatbotComponent } from './chatbot/chatbot.component';
 
 export const routes: Routes = [] = [
   {
@@ -9,7 +10,11 @@ export const routes: Routes = [] = [
   },
   {
     path: 'lessons',
-    component: LessonsPageComponent,
+    component: LessonsPageComponent
+  },
+  { 
+    path: "demo",
+    component: ChatbotComponent
   }
 ];
 
