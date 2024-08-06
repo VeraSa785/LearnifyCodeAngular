@@ -1,3 +1,26 @@
+.primary-styled-button {
+  padding: 15px;
+  background-color: #dbdd80 !important;
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56 !important;
+}
+
+/* Styling for disabled state */
+.primary-styled-button[disabled] {
+  background-color: #e3e3e3 !important;
+  color: #757575 !important;
+}
+
+.secondary-styled-button {
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56 !important;
+}
+
+.secondary-styled-button:hover {
+  background-color: #dbdd80;
+  color: #ffffff;
+}
+
 .chat-container {
   max-height: 1000 px;
   max-width: 600px;

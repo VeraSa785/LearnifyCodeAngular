@@ -16,7 +16,6 @@ export const routes: Routes = [] = [
   {
     path: 'chat',
     component: ChatPageComponent,
-    component: LessonsPageComponent
   },
   {
     path: "demo",
