@@ -13,6 +13,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {AuthService} from "../../auth.service";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
+import {AvatarScrollComponent} from "./avatar-scroll/avatar-scroll.component";
+
+
+interface Avatar {
+  id: number;
+  url: string;
+}
 
 @Component({
   selector: 'app-dialog',
@@ -27,15 +34,24 @@ import {Router} from "@angular/router";
     MatDialogTitle,
     MatDialogActions,
     MatDialogContent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AvatarScrollComponent
   ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent implements OnInit {
   form!: FormGroup;
-  selectedAvatar: number | null = null;
-  avatars = Array(7).fill(0);
+  selectedAvatar: Avatar | null = null;
+  avatars: Avatar[] = [
+    { id: 1, url: '/avatars/avatar_1.png' },
+    { id: 2, url: '/avatars/avatar_2.png' },
+    { id: 3, url: '/avatars/avatar_3.png' },
+    { id: 4, url: '/avatars/avatar_4.png' },
+    { id: 5, url: '/avatars/avatar_5.png' },
+    { id: 6, url: '/avatars/avatar_6.png' },
+    { id: 7, url: '/avatars/avatar_7.png' },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -63,10 +79,9 @@ export class DialogComponent implements OnInit {
     this.updateErrorMessages();
   }
 
-  selectAvatar(index: number): void {
-    this.selectedAvatar = index;
-    const avatarUrl = `/avatars/avatar_${index + 1}.png`;
-    this.form.get('avatar')?.setValue(avatarUrl);
+  onAvatarSelected(avatar: Avatar): void {
+    this.selectedAvatar = avatar;
+    this.form.get('avatar')?.setValue(avatar.url);
   }
 
   updateErrorMessages() {
@@ -99,11 +114,11 @@ export class DialogComponent implements OnInit {
   onOk(): void {
     this.updateErrorMessages();
     if (this.form.valid) {
-      const { username, email, password } = this.form.value;
-      this.authService.addUser(username, email, password).subscribe({
+      const userData = this.form.value;
+      this.authService.addUser(userData.username, userData.email, userData.password).subscribe({
         next: (res) => {
           console.log('User added successfully', res);
-          this.dialogRef.close({ username, email, password });
+          this.dialogRef.close(userData);
           this.router.navigate(['/lessons']);
         },
         error: (err) => {

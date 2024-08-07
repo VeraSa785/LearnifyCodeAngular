@@ -1,15 +1,8 @@
 <h1 mat-dialog-title class="dialog-title" >New account</h1>
 <div mat-dialog-content class="content">
   <form [formGroup]="form">
-    <p>Pick avatar:</p>
-    <div class="avatar-selection" *ngFor="let avatar of avatars; let i = index"
-         (click)="selectAvatar(i)" [class.selected]="selectedAvatar === i">
-      <img [src]="'/avatars/avatar_' + (i + 1) + '.png'"
-           alt="Avatar {{i + 1}}"
-           height="50"
-           width="50"
-           loading="lazy">
-    </div>
+    <p class="avatar-title">Pick avatar:</p>
+    <app-avatar-scroll [avatars]="avatars" [(currentAvatar)]="selectedAvatar" (avatarSelect)="onAvatarSelected($event)"></app-avatar-scroll>
     <!-- Username input field -->
     <mat-form-field appearance="outline" class="login-input-container input username">
       <mat-label>Username</mat-label>

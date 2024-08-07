@@ -36,3 +36,13 @@
   background-color: #dbdd80;
   color: #ffffff;
 }
+
+.selected img {
+  border: 2px solid #2962FF;
+}
+
+.avatar-title{
+  margin-bottom: 0;
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56 !important;
+}

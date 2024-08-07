@@ -1,0 +1,13 @@
+<div class="carousel">
+  <div class="carousel-items">
+    <div *ngFor="let avatar of avatars"
+         [ngClass]="{'selected': currentAvatar === avatar}"
+         (click)="selectAvatar(avatar)"
+         #tooltip="matTooltip"
+         matTooltip="Scroll to the right or left"
+         matTooltipPosition="right"
+         aria-tooltip="Button that displays and hides a tooltip triggered by other buttons">
+      <img [src]="avatar.url" alt="Avatar {{avatar.id}}" height="50" width="50">
+    </div>
+  </div>
+</div>

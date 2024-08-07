@@ -1,0 +1,29 @@
+.selected {
+  border: 2px solid #005cbb;
+}
+
+.carousel-items div {
+  cursor: pointer;
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.carousel-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+
+.carousel {
+  display: flex;
+  align-items: center;
+}
+
+.scroll {
+  width: 10px;
+}
