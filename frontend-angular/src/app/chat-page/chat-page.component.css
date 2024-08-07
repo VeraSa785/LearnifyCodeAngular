@@ -1,10 +1,18 @@
 .main-component {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   min-width: 400px;
   background-image: url('../assets/chat_background.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.title-container {
+  padding-left: 50px;
+  padding-top: 40px;
+  margin-bottom: 20px;
 }
 
 .paytone-one-regular {
@@ -15,7 +23,20 @@
   font-style: normal;
 }
 
-.title-container {
-  padding-left: 50px;
-  padding-top: 40px;
+.content-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column; /* Change to column for mobile view */
+}
+
+.left-side,
+.right-side {
+  flex: 1;
+  margin: 10px;
+}
+
+@media (min-width: 768px) {
+  .content-container {
+    flex-direction: row; /* Change to row for large screen */
+  }
 }
