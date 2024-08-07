@@ -2,8 +2,12 @@
   <div class="title-container">
     <h1 class="paytone-one-regular">{{ currentLesson }}</h1>
   </div>
-  <div class="left-side">
-    <app-chatbot></app-chatbot>
+  <div class="content-container">
+    <div class="left-side">
+      <app-chatbot [lessonContent]="lessonContent" [codeReview]="codeReviewRequest" [lessonTopic]="lessonTopic"></app-chatbot>
+    </div>
+    <div class="right-side">
+      <app-code-editor (codeReviewRequest)="handleCodeReviewRequest($event)"></app-code-editor>
+    </div>
   </div>
-  <div class="right-side"></div>
 </div>

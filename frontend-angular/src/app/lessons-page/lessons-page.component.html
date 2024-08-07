@@ -1,7 +1,6 @@
 <div class="main-component">
   <div class="main-left-container">
-    <img ngSrc="green_person.png" alt="Green Person" height="400" width="550"
-                                         priority={true}>
+    <img ngSrc="green_person.png" alt="Green Person" height="400" width="550" priority="true">
     <h1 class="paytone-one-regular">Our Lessons</h1>
   </div>
 
@@ -9,7 +8,9 @@
     <mat-card appearance="outlined">
       <mat-card-content class="card-content">
         <div class="lessons-buttons">
-          <button mat-raised-button *ngFor="let lesson of lessons" (click)="goToChatPage(lesson)">{{ lesson }}</button>
+          <button mat-raised-button *ngFor="let lesson of lessons" (click)="getLessonContent(lesson.query, lesson.title)">
+            {{ lesson.title }}
+          </button>
         </div>
       </mat-card-content>
     </mat-card>
