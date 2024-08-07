@@ -52,7 +52,7 @@ describe('ChatbotComponent', () => {
 
   it('should initialize with two initial messages', () => {
     expect(component.chatMessages.length).toBe(2);
-    expect(component.chatMessages[0].content).toContain('Hello! How can I help you today?');
+    expect(component.chatMessages[0].content).toContain('Hello! let\'s learn something new today:');
     expect(component.chatMessages[1].content).toContain('Today\'s lesson DFS stands for Depth-First Search.');
   });
 
