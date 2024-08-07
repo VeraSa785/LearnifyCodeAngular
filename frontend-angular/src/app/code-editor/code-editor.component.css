@@ -1,0 +1,39 @@
+.CodeMirror {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+}
+#myeditor {
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.ide-container {
+  max-height: 1000 px;
+  max-width: 600px;
+  min-width: 400px;
+  min-height: 600px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+codereview-button {
+  margin-top: 10px;
+  align-self: center;
+}
+mat-card-content{
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border-radius: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  margin-top: 10px;
+}
