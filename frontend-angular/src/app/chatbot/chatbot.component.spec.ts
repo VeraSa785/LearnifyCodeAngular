@@ -61,7 +61,7 @@ describe('ChatbotComponent', () => {
     component.sendMessage();
     fixture.detectChanges();
 
-    const req = httpTestingController.expectOne('http://localhost:3000/chat');
+    const req = httpTestingController.expectOne('https://minibackend-mzzo.onrender.com/chat');
     expect(req.request.method).toEqual('POST');
     req.flush({ reply: 'Response from chatbot' });
 
@@ -80,7 +80,7 @@ describe('ChatbotComponent', () => {
     component.sendPredefinedMessage('Display message', 'Actual message');
     fixture.detectChanges();
 
-    const req = httpTestingController.expectOne('http://localhost:3000/chat');
+    const req = httpTestingController.expectOne('https://minibackend-mzzo.onrender.com/chat');
     expect(req.request.method).toEqual('POST');
     req.flush({ reply: 'Variable predefined response' });
 
