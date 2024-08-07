@@ -53,7 +53,7 @@ export class ChatbotComponent {
   sendMessage() {
     if (this.userMessage.trim()) {
       this.chatMessages.push({ role: 'user', content: this.userMessage });
-      this.http.post<any>('http://localhost:3000/chat', { message: this.userMessage }).subscribe({
+      this.http.post<any>('https://minibackend-mzzo.onrender.com/chat', { message: this.userMessage }).subscribe({
         next: response => {
           this.chatMessages.push({ role: 'assistant', content: response.reply });
         },
@@ -69,7 +69,7 @@ export class ChatbotComponent {
   sendPredefinedMessage(displayMessage: string, actualMessage: string) {
     console.log('Sending Predefined Message:', displayMessage, actualMessage); // Debugging line
     this.chatMessages.push({ role: 'user', content: displayMessage });
-    this.http.post<any>('http://localhost:3000/chat', { message: actualMessage }).subscribe({
+    this.http.post<any>('https://minibackend-mzzo.onrender.com/chat', { message: actualMessage }).subscribe({
       next: response => {
         this.chatMessages.push({ role: 'assistant', content: response.reply });
       },
