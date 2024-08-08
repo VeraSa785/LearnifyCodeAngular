@@ -99,16 +99,17 @@ export class WelcomePageComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      const loginData: LoginData = {
+      const loginData = {
         email: this.formGroup.get('email')?.value,
         password: this.formGroup.get('password')?.value
       };
-      const success = this.authService.login(loginData);
-      if (success) {
+      if (this.authService.login(loginData)) {
         this.router.navigate(['/lessons']);
       } else {
         alert('Invalid email or password');
       }
+    } else {
+      alert('Please fill out the form correctly.');
     }
   }
 }

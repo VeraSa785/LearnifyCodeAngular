@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/lessons">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <!-- Only display logout inside the menu if user is logged in -->
+    <ng-container *ngIf="currentUser$ | async as user">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </ng-container>
+    <!-- Display login inside the menu if no user is logged in -->
+    <button mat-menu-item *ngIf="!(currentUser$ | async)" routerLink="">
+      <mat-icon>login</mat-icon>
+      <span>Login</span>
+    </button>
+  </mat-menu>
+  <span class="example-spacer"></span>
+  <!-- Show username and avatar outside the menu -->
+  <div class="user-data">
+    <ng-container class="user-info" *ngIf="currentUser$ | async as user">
+      <span class="username">{{ user.username }}</span>
+      <img [src]="user.avatarUrl" alt="User avatar" class="user-avatar">
+    </ng-container>
+  </div>
+</mat-toolbar>

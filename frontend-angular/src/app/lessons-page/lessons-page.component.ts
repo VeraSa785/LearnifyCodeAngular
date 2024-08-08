@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {MatCard, MatCardContent} from "@angular/material/card";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {Router} from "@angular/router";
+import {MatIcon} from "@angular/material/icon";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {NavBarComponent} from "../navigation-bar/navigation-bar.component";
 
 @Component({
   selector: 'app-lessons-page',
@@ -12,7 +16,14 @@ import {Router} from "@angular/router";
     MatCard,
     MatCardContent,
     NgForOf,
-    MatButton
+    MatButton,
+    MatIcon,
+    MatToolbar,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
+    MatIconButton,
+    NavBarComponent
   ],
   templateUrl: './lessons-page.component.html',
   styleUrl: './lessons-page.component.css'

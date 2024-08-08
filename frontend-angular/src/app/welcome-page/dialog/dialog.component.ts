@@ -115,7 +115,7 @@ export class DialogComponent implements OnInit {
     this.updateErrorMessages();
     if (this.form.valid) {
       const userData = this.form.value;
-      this.authService.addUser(userData.username, userData.email, userData.password).subscribe({
+      this.authService.addUser(userData.username, userData.email, userData.password, userData.avatar).subscribe({
         next: (res) => {
           console.log('User added successfully', res);
           this.dialogRef.close(userData);
