@@ -3,7 +3,6 @@ import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {Router} from "@angular/router";
-import { title } from 'process';
 
 @Component({
   selector: 'app-lessons-page',
