@@ -66,7 +66,7 @@ export class DialogComponent implements OnInit {
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       repeatPassword: ['', Validators.required],
       avatar: ['']
     });
@@ -90,18 +90,22 @@ export class DialogComponent implements OnInit {
     const password = this.form.get('password')?.value;
     const repeatPassword = this.form.get('repeatPassword')?.value;
 
-    this.form.get('username')?.setErrors(
-      this.authService.usernameExists(username) ? { usernameExists: 'Username already exists' } : null
-    );
-
-    this.form.get('email')?.setErrors(
-      this.authService.emailExists(email) ? { emailExists: 'Email already exists' } : null
-    );
+    // this.form.get('username')?.setErrors(
+    //   this.authService.usernameExists(username) ? { usernameExists: 'Username already exists' } : null
+    // );
+    //
+    // this.form.get('email')?.setErrors(
+    //   this.authService.emailExists(email) ? { emailExists: 'Email already exists' } : null
+    // );
 
     if (password !== repeatPassword) {
       this.form.get('repeatPassword')?.setErrors({ passwordsMismatch: 'Passwords do not match' });
     } else {
       this.form.get('repeatPassword')?.setErrors(null);
+    }
+
+    if (password && password.length < 6) {
+      this.form.get('password')?.setErrors({ minLength: 'Password must be at least 6 characters long' });
     }
 
     this.cdr.detectChanges();
@@ -115,7 +119,7 @@ export class DialogComponent implements OnInit {
     this.updateErrorMessages();
     if (this.form.valid) {
       const userData = this.form.value;
-      this.authService.addUser(userData.username, userData.email, userData.password, userData.avatar).subscribe({
+      this.authService.signUp(userData.username, userData.email, userData.password, userData.avatar).subscribe({
         next: (res) => {
           console.log('User added successfully', res);
           this.dialogRef.close(userData);
@@ -138,14 +142,17 @@ export class DialogComponent implements OnInit {
     if (control?.hasError('email')) {
       return 'Invalid email format';
     }
-    if (control?.hasError('usernameExists')) {
-      return 'Username already exists';
-    }
-    if (control?.hasError('emailExists')) {
-      return 'Email already exists';
-    }
+    // if (control?.hasError('usernameExists')) {
+    //   return 'Username already exists';
+    // }
+    // if (control?.hasError('emailExists')) {
+    //   return 'Email already exists';
+    // }
     if (control?.hasError('passwordsMismatch')) {
       return 'Passwords do not match';
+    }
+    if (control?.hasError('minLength')) {
+      return 'Password must be at least 6 characters long';
     }
     return '';
   }

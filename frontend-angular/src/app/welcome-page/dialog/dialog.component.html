@@ -22,7 +22,7 @@
     </mat-form-field>
 
     <!-- Password input field -->
-    <mat-form-field appearance="outline" class="login-input-container input">
+    <mat-form-field appearance="outline" class="login-input-container input password">
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
       <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">

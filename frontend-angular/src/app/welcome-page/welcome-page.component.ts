@@ -5,7 +5,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {
-  FormBuilder,
+  FormBuilder, FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -15,11 +15,6 @@ import {AuthService} from "../auth.service";
 import {MatDialog,MatDialogModule} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DialogComponent} from "./dialog/dialog.component";
-
-export interface LoginData {
-  email: string;
-  password: string;
-}
 
 @Component({
   selector: 'app-welcome-page',
@@ -37,6 +32,11 @@ export interface LoginData {
 })
 export class WelcomePageComponent implements OnInit {
   formGroup!: FormGroup;
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  });
 
   constructor(
     private authService: AuthService,
@@ -99,17 +99,27 @@ export class WelcomePageComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
+      // Extract values from the form controls
       const loginData = {
         email: this.formGroup.get('email')?.value,
         password: this.formGroup.get('password')?.value
       };
-      if (this.authService.login(loginData)) {
-        this.router.navigate(['/lessons']);
-      } else {
-        alert('Invalid email or password');
-      }
+
+      this.authService.login(loginData).subscribe({
+        next: (success) => {
+          if (success) {
+            console.log('Login successful');
+            this.router.navigate(['/lessons']); // Navigate on success
+          } else {
+            alert('Login failed');
+          }
+        },
+        error: (error) => {
+          alert('Login failed: ' + error.message); // Provide error feedback
+        }
+      });
     } else {
-      alert('Please fill out the form correctly.');
+      alert('Please fill out the form correctly.'); // Alert if form is not valid
     }
   }
 }

@@ -14,6 +14,10 @@
   padding-top: 5px;
 }
 
+.password {
+  padding-bottom: 5px;
+}
+
 .primary-styled-button {
   padding: 15px;
   background-color: #dbdd80 !important;
