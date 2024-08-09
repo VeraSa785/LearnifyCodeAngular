@@ -1,11 +1,18 @@
 <mat-card class="chat-container">
   <mat-card-content>
-    <mat-list class="messages-list">
+    <mat-list  class="messages-list">
       <mat-list-item lines="100000" *ngFor="let message of chatMessages" [ngClass]="message.role">
         <span matListItemTitle class="hidden-title">Title</span>
         <mat-icon matListItemIcon *ngIf="message.role !== 'user'">face</mat-icon>
         <div class="message-content">{{ message.content }}</div>
       </mat-list-item>
+      <!-- Custom Speech Bubble Throbber -->
+      <mat-list-item *ngIf="loading || lessonLoading" class="loading-bubble">
+        <div class="speech-bubble">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div> </mat-list-item>
     </mat-list>
   </mat-card-content>
   <mat-divider></mat-divider>
