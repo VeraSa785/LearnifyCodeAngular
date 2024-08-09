@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AuthService, User} from "../auth.service";
 import {Router, RouterLink} from "@angular/router";
 import {CommonModule, NgIf} from "@angular/common";
@@ -29,8 +29,9 @@ import {FormsModule} from "@angular/forms";
 })
 export class NavBarComponent {
   currentUser$: Observable<User | null>;
+  @Input() backgroundColor: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, public router: Router) {
     this.currentUser$ = this.authService.currentUser;
   }
 

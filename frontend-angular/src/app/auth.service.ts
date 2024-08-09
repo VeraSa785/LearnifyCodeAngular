@@ -15,6 +15,7 @@ export interface User {
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<User|null>(null);
   public currentUser = this.currentUserSubject.asObservable();
+  private loggedIn = new BehaviorSubject<boolean>(false); // Default to not logged in
 
   private users: User[] = [
     { username: 'john', email: 'john@example.com', password: 'john123', avatarUrl: '/avatars/avatar_1.png' },
@@ -33,7 +34,12 @@ export class AuthService {
     }
   }
 
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
+  }
+
   login(loginData: LoginData): boolean {
+    this.loggedIn.next(true);
     const user = this.users.find(u => u.email === loginData.email && u.password === loginData.password);
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
@@ -44,6 +50,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.loggedIn.next(false);
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }

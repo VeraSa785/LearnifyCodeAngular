@@ -1,6 +1,5 @@
 .main-component {
   min-height: 100vh;
-  min-width: 400px;
   background-color: #2962FF;
   background-size: cover;
   background-repeat: no-repeat;
@@ -28,8 +27,7 @@
   /* alignment */
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  gap: 140px;
+  gap: 70px;
 }
 
 .paytone-one-regular {
@@ -38,6 +36,13 @@
   font-size: 90px;
   color: #dbdd80;
   font-style: normal;
+}
+
+.paytone-two-regular {
+  font-family: "Paytone One", sans-serif;
+  font-weight: 500;
+  font-size: 50px;
+  color: #dbdd80;
 }
 
 /*Styling for the right side*/

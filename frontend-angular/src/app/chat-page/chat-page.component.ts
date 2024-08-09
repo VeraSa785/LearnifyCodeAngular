@@ -5,15 +5,17 @@ import { firstValueFrom } from 'rxjs';
 import { ChatbotComponent } from '../chatbot/chatbot.component';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { NgIf } from '@angular/common';
+import {NavBarComponent} from "../navigation-bar/navigation-bar.component";
 
 @Component({
   selector: 'app-chat-page',
   standalone: true,
-  imports: [
-    ChatbotComponent,
-    CodeEditorComponent,
-    NgIf
-  ],
+    imports: [
+        ChatbotComponent,
+        CodeEditorComponent,
+        NgIf,
+        NavBarComponent
+    ],
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.css']
 })

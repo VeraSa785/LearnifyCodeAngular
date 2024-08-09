@@ -1,7 +1,7 @@
 <h1 mat-dialog-title class="dialog-title" >New account</h1>
 <div mat-dialog-content class="content">
-  <form [formGroup]="form">
-    <p class="avatar-title">Pick avatar:</p>
+  <form [formGroup]="form" (ngSubmit)="onOk()">
+    <p class="avatar-title">Pick avatar*</p>
     <app-avatar-scroll [avatars]="avatars" [(currentAvatar)]="selectedAvatar" (avatarSelect)="onAvatarSelected($event)"></app-avatar-scroll>
     <!-- Username input field -->
     <mat-form-field appearance="outline" class="login-input-container input username">
@@ -42,5 +42,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()" class="secondary-styled-button">No Thanks</button>
-  <button mat-button (click)="onOk()" [disabled]="form.invalid" class="primary-styled-button">Ok</button>
+  <button mat-button (click)="onOk()" [disabled]="form.invalid || !selectedAvatar" class="primary-styled-button">Ok</button>
 </div>

@@ -37,3 +37,10 @@ mat-card-content{
   padding: 10px;
   margin-top: 10px;
 }
+
+.primary-styled-button {
+  padding: 15px;
+  background-color: #dbdd80 !important;
+  font-family: 'Comfortaa', sans-serif;
+  color: #494f56 !important;
+}

@@ -1,11 +1,11 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" [ngStyle]="{'background-color': backgroundColor}">
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/lessons">
-      <mat-icon>home</mat-icon>
-      <span>Home</span>
+    <button mat-menu-item *ngIf="router.url !== '/lessons'" routerLink="/lessons">
+      <mat-icon>view_stream</mat-icon>
+      <span>Lessons</span>
     </button>
     <!-- Only display logout inside the menu if user is logged in -->
     <ng-container *ngIf="currentUser$ | async as user">

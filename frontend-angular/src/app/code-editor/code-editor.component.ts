@@ -7,6 +7,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 
@@ -26,7 +27,7 @@ const editorHeightStyle = EditorView.theme({
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.css'],
   standalone: true,
-  imports: [MatCardModule, MatButtonModule]
+  imports: [MatCardModule, MatButtonModule, MatTooltip]
 })
 export class CodeEditorComponent implements AfterViewInit {
   title = 'component-overview';
@@ -65,7 +66,7 @@ export class CodeEditorComponent implements AfterViewInit {
             state,
             parent: myEditorElement,
           });
-          console.log("EditorView initialized:", this.editorView); 
+          console.log("EditorView initialized:", this.editorView);
         } else {
           console.error("EditorState is not defined, Make sur codemirror@6.0.1 is installed.");
         }
@@ -77,11 +78,11 @@ export class CodeEditorComponent implements AfterViewInit {
 
   reviewCode(): void {
     if (!this.editorView) {
-      console.error("EditorView is not initialized."); 
+      console.error("EditorView is not initialized.");
       return;
     }
     const code = this.editorView.state.doc.toString(); // Gets the current content of the editor
     const prompt = 'Please review my code and point out what I did good and next steps to master that topic.';
-    this.codeReviewRequest.emit({ code, prompt }); 
+    this.codeReviewRequest.emit({ code, prompt });
   }
 }
