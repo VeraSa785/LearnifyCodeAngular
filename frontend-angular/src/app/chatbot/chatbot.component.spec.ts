@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
@@ -17,8 +17,8 @@ describe('ChatbotComponent', () => {
   let fixture: ComponentFixture<ChatbotComponent>;
   let httpTestingController: HttpTestingController;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         FormsModule,
         BrowserAnimationsModule,
@@ -33,14 +33,13 @@ describe('ChatbotComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting()
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChatbotComponent);
     component = fixture.componentInstance;
     httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
-  }));
+  });
 
   afterEach(() => {
     httpTestingController.verify();
@@ -54,6 +53,24 @@ describe('ChatbotComponent', () => {
     expect(component.chatMessages.length).toBe(1);
     expect(component.chatMessages[0].content).toContain("Hello! let's learn something new today:");
   });
+
+  it('should update messages when lessonContent changes', fakeAsync(() => {
+    component.lessonContent = 'New lesson content';
+    component.ngOnChanges({
+      lessonContent: {
+        currentValue: 'New lesson content',
+        previousValue: '',
+        firstChange: true,
+        isFirstChange: () => true,
+      }
+    });
+
+    tick(10000); // Simulate 10 seconds passing
+    fixture.detectChanges();
+
+    expect(component.chatMessages.length).toBe(2); // 1 initial + 1 new lesson content
+    expect(component.chatMessages[1].content).toContain('New lesson content');
+  }));
 
   it('should send a new message and receive a response', () => {
     component.userMessage = 'Test message';
@@ -88,19 +105,17 @@ describe('ChatbotComponent', () => {
     expect(messages[2].nativeElement.textContent).toContain('Variable predefined response');
   });
 
-  it('should update messages when lessonContent changes', () => {
-    component.lessonContent = "New lesson content";
-    component.ngOnChanges({ lessonContent: { currentValue: "New lesson content", previousValue: "", firstChange: true, isFirstChange: () => true } });
-    fixture.detectChanges();
-
-    expect(component.chatMessages.length).toBe(2); // 1 initial + 1 lessonContent
-    expect(component.chatMessages[1].content).toContain('New lesson content');
-  });
-
   it('should update messages when codeReview changes', () => {
     const codeReview = { code: 'Sample code', prompt: 'Sample prompt' };
     component.codeReview = codeReview;
-    component.ngOnChanges({ codeReview: { currentValue: codeReview, previousValue: "", firstChange: true, isFirstChange: () => true } });
+    component.ngOnChanges({
+      codeReview: {
+        currentValue: codeReview,
+        previousValue: "",
+        firstChange: true,
+        isFirstChange: () => true
+      }
+    });
     fixture.detectChanges();
 
     const req = httpTestingController.expectOne('https://minibackend-mzzo.onrender.com/chat');
