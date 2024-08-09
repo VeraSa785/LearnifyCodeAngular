@@ -35,31 +35,38 @@ export class ChatbotComponent {
   ];
 
   userMessage = '';
+  loading = false;  
+  lessonLoading = false;
 
   constructor(private http: HttpClient) {}
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['codeReview'] && this.codeReview) {
       this.sendPredefinedMessage('Review My Code', `${this.codeReview.prompt}\n\n${this.codeReview.code}`);
     }
     if (changes['lessonContent'] && this.lessonContent) {
-      this.chatMessages.push({ role: 'assistant', content: this.lessonContent });
-    }
-    if (changes['lessonTopic'] && this.lessonTopic) {
-      console.log('Lesson Topic Changed:', this.lessonTopic); // Debugging line
+      if (!this.lessonLoading) {
+        this.lessonLoading = true;
+        setTimeout(() => {
+          this.chatMessages.push({ role: 'assistant', content: this.lessonContent });
+          this.lessonLoading = false; // End loading lesson
+        }, 10000);
+      }
     }
   }
-
+  
   sendMessage() {
     if (this.userMessage.trim()) {
+      this.loading = true;
       this.chatMessages.push({ role: 'user', content: this.userMessage });
       this.http.post<any>('https://minibackend-mzzo.onrender.com/chat', { message: this.userMessage }).subscribe({
         next: response => {
           this.chatMessages.push({ role: 'assistant', content: response.reply });
+          this.loading = false;
         },
         error: error => {
           console.error('Error:', error);
           this.chatMessages.push({ role: 'assistant', content: 'Sorry, something went wrong. Please try again.' });
+          this.loading = false;
         }
       });
       this.userMessage = '';
@@ -67,21 +74,23 @@ export class ChatbotComponent {
   }
 
   sendPredefinedMessage(displayMessage: string, actualMessage: string) {
-    console.log('Sending Predefined Message:', displayMessage, actualMessage); // Debugging line
+    this.loading = true;
     this.chatMessages.push({ role: 'user', content: displayMessage });
     this.http.post<any>('https://minibackend-mzzo.onrender.com/chat', { message: actualMessage }).subscribe({
       next: response => {
         this.chatMessages.push({ role: 'assistant', content: response.reply });
+        this.loading = false;
       },
       error: error => {
         console.error('Error:', error);
         this.chatMessages.push({ role: 'assistant', content: 'Sorry, something went wrong. Please try again.' });
+        this.loading = false;
       }
     });
   }
 
   handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !this.loading) {
       event.preventDefault();
       this.sendMessage();
     }
