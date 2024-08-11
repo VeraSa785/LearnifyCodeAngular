@@ -1,11 +1,10 @@
+/* Overall container */
 .content {
-  /* alignment */
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   min-height: 100%;
-  /*style*/
   background-color: white;
 }
 
@@ -14,16 +13,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 20px;
   padding: 20px 24px;
 }
 
 .left-side {
-  /* alignment */
   justify-content: center;
   padding-left: 80px;
-  align-items: flex-start;
+  align-items: flex-start; 
   min-height: 100vh;
 }
 
@@ -36,33 +33,38 @@
 }
 
 .header-container {
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.text-container {
+  font-family: 'Comfortaa', sans-serif;
+  text-align: left; 
+  width: 100%;
 }
 
 .text-container p:nth-of-type(2) {
   margin-top: 50px;
 }
 
-.text-container {
-  font-family: 'Comfortaa', sans-serif;
-}
-
-.primary-styled-button {
+.primary-styled-button,
+.secondary-styled-button {
   padding: 15px;
-  background-color: #dbdd80 !important;
   font-family: 'Comfortaa', sans-serif;
   color: #494f56 !important;
 }
 
-/* Styling for disabled state */
+.primary-styled-button {
+  background-color: #dbdd80 !important;
+}
+
 .primary-styled-button[disabled] {
   background-color: #e3e3e3 !important;
   color: #757575 !important;
 }
 
 .secondary-styled-button {
-  font-family: 'Comfortaa', sans-serif;
   color: #494f56 !important;
 }
 
@@ -75,21 +77,121 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; 
   padding-right: 80px;
 }
 
+/* Input Group: Email and Password */
+.input-group {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.email-input,
+.password-input {
+  /* margin-bottom: 20px; */
+  box-sizing: border-box; 
+}
+
 .email-input {
-  padding-right: 10px;
-  padding-left: 60px;
-  padding-bottom: 5px;
+  margin-right: 20px; 
 }
 
-.login-button {
-  margin-right: 10px;
-  margin-left: 60px;
+input[matInput] {
+  width: 100%; 
+  box-sizing: border-box;
 }
 
-.submit-button-container{
-  padding-top: 10px;
+/* Submit Button Container */
+.submit-button-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.login-button,
+.secondary-styled-button {
+  margin-right: 10px; /* Space between buttons */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column; /* Stack content vertically */
+  }
+
+  .left-side,
+  .right-side {
+    padding: 10px 20px;
+  }
+
+  .paytone-one-regular {
+    font-size: 80px; /* Smaller heading */
+    text-align: left; 
+  }
+
+  .text-container {
+    text-align: left;
+  }
+
+  .input-group {
+    width: 100%;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .email-input,
+  .password-input {
+ 
+    width: 100%;
+    margin-right: 0;
+    text-align: center; 
+  }
+  .email-input{
+    padding-bottom: 10px;
+  }
+
+  .login-button,
+  .secondary-styled-button {
+    width: 90%; 
+    margin-bottom: 10px; 
+  }
+
+  .submit-button-container {
+    flex-direction: column; 
+    align-items: center; 
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 10px;
+  }
+
+  .paytone-one-regular {
+    font-size: 70px;
+    text-align: left; 
+  }
+
+  .email-input,
+  .password-input {
+    width: 100%; 
+    box-sizing: border-box;
+    padding-left: 10px; 
+    padding-right: 10px;
+    text-align: center; 
+  }
+
+  .email-input{
+    padding-bottom: 10px;
+  }
+
+  .right-side {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 }
