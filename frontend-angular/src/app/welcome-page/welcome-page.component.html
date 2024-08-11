@@ -1,6 +1,5 @@
 <div class="content">
   <div class="left-side">
-
     <div class="header-container">
       <div class="header-left">
         <h1 class="paytone-one-regular">Learnify</h1>
@@ -10,10 +9,8 @@
       </div>
     </div>
 
-    <div class="text-container"><p>Empowering you to master algorithms and data structures, our app offers curated
-      lessons and
-      practical examples. Whether preparing for interviews or enhancing your skills, Learnify Code
-      is your go-to resource for building confidence and proficiency in algorithmic problem-solving.</p>
+    <div class="text-container">
+      <p>Empowering you to master algorithms and data structures, our app offers curated lessons and practical examples. Whether preparing for interviews or enhancing your skills, Learnify Code is your go-to resource for building confidence and proficiency in algorithmic problem-solving.</p>
       <p>Try without logging in!</p>
     </div>
 
@@ -24,33 +21,35 @@
   </div>
 
   <div class="right-side">
-    <img ngSrc="two_persons.png" alt="Green Person" height="450" width="600"
-         priority={true}>
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <!-- Email input field -->
-        <mat-form-field appearance="outline" class="login-input-container email-input">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="Enter your email" formControlName="email">
-          <mat-error *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
-            {{ getError('email') }}
-          </mat-error>
-        </mat-form-field>
+    <img ngSrc="two_persons.png" alt="Green Person" height="450" width="600" priority="true">
+    <div class="form-container">
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <!-- Email input field -->
+          <mat-form-field appearance="outline" class="login-input-container email-input">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email" formControlName="email">
+            <mat-error *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+              {{ getError('email') }}
+            </mat-error>
+          </mat-form-field>
 
-        <!-- Password input field -->
-        <mat-form-field appearance="outline" class="login-input-container">
-          <mat-label>Password</mat-label>
-          <input matInput placeholder="Enter your password" formControlName="password" type="password">
-          <mat-error *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched">
-            {{ getError('pass') }}
-          </mat-error>
-        </mat-form-field>
+          <!-- Password input field -->
+          <mat-form-field appearance="outline" class="login-input-container password-input">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Enter your password" formControlName="password" type="password">
+            <mat-error *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched">
+              {{ getError('pass') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
         <!-- Submit button -->
         <div class="submit-button-container">
           <button mat-raised-button class="primary-styled-button login-button" type="submit" [disabled]="formGroup.invalid">Login</button>
           <button mat-button (click)="openDialog()" class="secondary-styled-button" type="button">Sign up</button>
         </div>
-
       </form>
+    </div>
   </div>
 </div>
