@@ -22,12 +22,6 @@ export class AuthService {
   private baseUrl = 'https://learnifycode-backend.onrender.com/auth';
   private loggedIn = new BehaviorSubject<boolean>(false); // Default to not logged in
 
-  // private users: User[] = [
-  //   { username: 'john', email: 'john@example.com', password: 'john123', avatarUrl: '/avatars/avatar_1.png' },
-  //   { username: 'anny', email: 'anny@example.com', password: 'anny123', avatarUrl: '/avatars/avatar_4.png' },
-  //   { username: 'doe', email: 'doe@example.com', password: 'doe123', avatarUrl: '/avatars/avatar_7.png' }
-  // ];
-
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: any
@@ -41,10 +35,6 @@ export class AuthService {
 
     this.currentUserSubject = new BehaviorSubject<User | null>(storedUser);
     this.currentUser = this.currentUserSubject.asObservable();
-  }
-
-  public get currentUserValue(): User | null {
-    return this.currentUserSubject.value;
   }
 
   isLoggedIn(): Observable<boolean> {
@@ -100,18 +90,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
-
-  // userExists(username: string, email: string): boolean {
-  //   return this.users.some(u => u.username === username || u.email === email);
-  // }
-  //
-  // emailExists(email: string): boolean {
-  //   return this.users.some(u => u.email === email);
-  // }
-  //
-  // usernameExists(username: string): boolean {
-  //   return this.users.some(u => u.username === username);
-  // }
 
   signUp(username: string, email: string, password: string, avatarUrl: string, avatarWidth: number): Observable<User> {
     this.loggedIn.next(true);

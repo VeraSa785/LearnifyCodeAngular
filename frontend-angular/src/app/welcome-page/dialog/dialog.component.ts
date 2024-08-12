@@ -114,14 +114,6 @@ export class DialogComponent implements OnInit {
     const password = this.form.get('password')?.value;
     const repeatPassword = this.form.get('repeatPassword')?.value;
 
-    // this.form.get('username')?.setErrors(
-    //   this.authService.usernameExists(username) ? { usernameExists: 'Username already exists' } : null
-    // );
-    //
-    // this.form.get('email')?.setErrors(
-    //   this.authService.emailExists(email) ? { emailExists: 'Email already exists' } : null
-    // );
-
     if (password !== repeatPassword) {
       this.form.get('repeatPassword')?.setErrors({ passwordsMismatch: 'Passwords do not match' });
     } else {
@@ -145,7 +137,6 @@ export class DialogComponent implements OnInit {
       const userData = this.form.value;
       this.authService.signUp(userData.username, userData.email, userData.password, userData.avatar, this.selectedAvatar!.width).subscribe({
         next: (res) => {
-          console.log('User added successfully', res);
           this.dialogRef.close(userData);
           this.router.navigate(['/lessons']);
         },
@@ -166,12 +157,6 @@ export class DialogComponent implements OnInit {
     if (control?.hasError('email')) {
       return 'Invalid email format';
     }
-    // if (control?.hasError('usernameExists')) {
-    //   return 'Username already exists';
-    // }
-    // if (control?.hasError('emailExists')) {
-    //   return 'Email already exists';
-    // }
     if (control?.hasError('passwordsMismatch')) {
       return 'Passwords do not match';
     }

@@ -32,9 +32,9 @@
 }
 
 .main-left-container img {
-  max-width: 100%;  /* Ensure the image scales to the container's width */
-  height: auto;     /* Maintain the aspect ratio */
-  object-fit: contain; /* Adjust how the image fits inside its container */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .paytone-one-regular {
@@ -99,7 +99,7 @@
   .main-left-container img {
     max-width: 100%;
     height: auto;
-    object-fit: cover; /* Adjust to cover, contain, or scale-down depending on the desired effect */
+    object-fit: cover;
   }
 
   .paytone-one-regular {
@@ -129,7 +129,7 @@
   .main-left-container img {
     max-width: 100%;
     height: auto;
-    object-fit: cover; /* Further scale-down the image or adjust fitting */
+    object-fit: cover;
   }
 
   .paytone-one-regular {

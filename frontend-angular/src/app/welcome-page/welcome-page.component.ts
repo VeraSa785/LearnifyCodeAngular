@@ -109,7 +109,6 @@ export class WelcomePageComponent implements OnInit {
       this.authService.login(loginData).subscribe({
         next: (success) => {
           if (success) {
-            console.log('Login successful');
             this.router.navigate(['/lessons']); // Navigate on success
           } else {
             alert('Login failed');
