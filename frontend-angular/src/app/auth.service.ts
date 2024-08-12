@@ -9,6 +9,7 @@ export interface User {
   email: string;
   uid: string;
   avatarUrl: string;
+  avatarWidth: number;
 }
 
 @Injectable({
@@ -60,12 +61,15 @@ export class AuthService {
       .pipe(
         map(response => {
           if (response && response.idToken) {
+            const avatarUrl = response.avatar_url;
+            const avatarWidth = this.getAvatarWidth(avatarUrl);
 
             const user: User = {
               email,
               username: response.name,
               uid: response.uid,
-              avatarUrl: response.avatar_url
+              avatarUrl: avatarUrl,
+              avatarWidth: avatarWidth
             };
 
             localStorage.setItem('currentUser', JSON.stringify(user));
@@ -99,13 +103,14 @@ export class AuthService {
   //   return this.users.some(u => u.username === username);
   // }
 
-  signUp(username: string, email: string, password: string, avatarUrl: string): Observable<User> {
+  signUp(username: string, email: string, password: string, avatarUrl: string, avatarWidth: number): Observable<User> {
     this.loggedIn.next(true);
     const userData = {
       name: username,
       email: email,
       password: password,
-      avatar_url: avatarUrl
+      avatar_url: avatarUrl,
+      avatarWidth: avatarWidth
     };
 
     return this.http.post<any>(`${this.baseUrl}/signup`, userData).pipe(
@@ -116,7 +121,8 @@ export class AuthService {
             email: email,
             username: username,
             uid: response.user_id,
-            avatarUrl: avatarUrl
+            avatarUrl: avatarUrl,
+            avatarWidth: avatarWidth
           };
           // Store user details in local storage
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -130,5 +136,43 @@ export class AuthService {
         return throwError(() => new Error('Signup failed, please check provided details and try again.'));
       })
     );
+  }
+
+  private getAvatarWidth(avatarUrl: string): number {
+    const avatars = [
+      { id: 1, url: '/avatars/avatar_1.png', width: 55 },
+      { id: 2, url: '/avatars/avatar_2.png', width: 55 },
+      { id: 3, url: '/avatars/avatar_3.png', width: 55 },
+      { id: 4, url: '/avatars/avatar_4.png', width: 55 },
+      { id: 5, url: '/avatars/avatar_5.png', width: 60 },
+      { id: 6, url: '/avatars/avatar_6.png', width: 50 },
+      { id: 7, url: '/avatars/avatar_7.png', width: 60 },
+      { id: 8, url: '/avatars/avatar_8.png', width: 55 },
+      { id: 9, url: '/avatars/avatar_9.png', width: 55 },
+      { id: 10, url: '/avatars/avatar_10.png', width: 55 },
+      { id: 11, url: '/avatars/avatar_11.png', width: 55 },
+      { id: 12, url: '/avatars/avatar_12.png', width: 50 },
+      { id: 13, url: '/avatars/avatar_13.png', width: 50 },
+      { id: 14, url: '/avatars/avatar_14.png', width: 50 },
+      { id: 15, url: '/avatars/avatar_15.png', width: 55 },
+      { id: 16, url: '/avatars/avatar_16.png', width: 55 },
+      { id: 17, url: '/avatars/avatar_17.png', width: 50 },
+      { id: 18, url: '/avatars/avatar_18.png', width: 55 },
+      { id: 19, url: '/avatars/avatar_19.png', width: 50 },
+      { id: 20, url: '/avatars/avatar_20.png', width: 60 },
+      { id: 21, url: '/avatars/avatar_21.png', width: 45 },
+      { id: 22, url: '/avatars/avatar_22.png', width: 45 },
+      { id: 23, url: '/avatars/avatar_23.png', width: 40 },
+      { id: 24, url: '/avatars/avatar_24.png', width: 35 },
+      { id: 25, url: '/avatars/avatar_25.png', width: 50 },
+      { id: 26, url: '/avatars/avatar_26.png', width: 35 },
+      { id: 27, url: '/avatars/avatar_27.png', width: 40 },
+      { id: 28, url: '/avatars/avatar_28.png', width: 50 },
+      { id: 29, url: '/avatars/avatar_29.png', width: 50 },
+      { id: 30, url: '/avatars/avatar_30.png', width: 45 },
+    ];
+
+    const avatar = avatars.find(a => a.url === avatarUrl);
+    return avatar ? avatar.width : 50;
   }
 }

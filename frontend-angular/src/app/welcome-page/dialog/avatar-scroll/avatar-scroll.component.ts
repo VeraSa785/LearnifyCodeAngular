@@ -1,12 +1,13 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {MatIconButton} from "@angular/material/button";
-import {NgClass, NgForOf} from "@angular/common";
+import {NgClass, NgForOf, NgStyle} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 
 interface Avatar {
   id: number;
   url: string;
+  width: number;
 }
 
 @Component({
@@ -17,7 +18,8 @@ interface Avatar {
     NgClass,
     NgForOf,
     MatIcon,
-    MatTooltip
+    MatTooltip,
+    NgStyle
   ],
   templateUrl: './avatar-scroll.component.html',
   styleUrl: './avatar-scroll.component.css'

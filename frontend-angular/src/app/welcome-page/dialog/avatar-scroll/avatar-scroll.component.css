@@ -12,16 +12,13 @@
 
 .carousel-items {
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow-x: auto;
-  padding: 10px;
+  justify-content: start;
 }
 
-
 .carousel {
-  display: flex;
-  align-items: center;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .scroll {

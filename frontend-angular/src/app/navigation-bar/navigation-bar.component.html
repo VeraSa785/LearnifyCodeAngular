@@ -25,7 +25,11 @@
   <div class="user-data">
     <ng-container class="user-info" *ngIf="currentUser$ | async as user">
       <span class="username">{{ user.username }}</span>
-      <img [src]="user.avatarUrl" alt="User avatar" class="user-avatar">
+      <img [src]="user.avatarUrl"
+           alt="User avatar"
+           class="user-avatar"
+           [style.width.px]="user.avatarWidth"
+           height="50px">
     </ng-container>
   </div>
 </mat-toolbar>
