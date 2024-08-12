@@ -1,0 +1,11 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #f1f0f0;
+  text-align: center;
+  padding: 5px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #494f56;
+}

@@ -8,25 +8,27 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {NavBarComponent} from "../navigation-bar/navigation-bar.component";
 import {AuthService} from "../auth.service";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-lessons-page',
   standalone: true,
-  imports: [
-    NgOptimizedImage,
-    MatCard,
-    MatCardContent,
-    NgForOf,
-    MatButton,
-    MatIcon,
-    MatToolbar,
-    MatMenu,
-    MatMenuItem,
-    MatMenuTrigger,
-    MatIconButton,
-    NavBarComponent,
-    NgIf
-  ],
+    imports: [
+        NgOptimizedImage,
+        MatCard,
+        MatCardContent,
+        NgForOf,
+        MatButton,
+        MatIcon,
+        MatToolbar,
+        MatMenu,
+        MatMenuItem,
+        MatMenuTrigger,
+        MatIconButton,
+        NavBarComponent,
+        NgIf,
+        FooterComponent
+    ],
   templateUrl: './lessons-page.component.html',
   styleUrl: './lessons-page.component.css'
 })

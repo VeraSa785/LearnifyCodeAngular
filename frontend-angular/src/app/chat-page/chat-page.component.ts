@@ -6,6 +6,7 @@ import { ChatbotComponent } from '../chatbot/chatbot.component';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { NgIf } from '@angular/common';
 import {NavBarComponent} from "../navigation-bar/navigation-bar.component";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-chat-page',
@@ -14,7 +15,8 @@ import {NavBarComponent} from "../navigation-bar/navigation-bar.component";
         ChatbotComponent,
         CodeEditorComponent,
         NgIf,
-        NavBarComponent
+        NavBarComponent,
+        FooterComponent
     ],
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.css']

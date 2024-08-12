@@ -15,6 +15,7 @@ import {AuthService} from "../auth.service";
 import {MatDialog,MatDialogModule} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DialogComponent} from "./dialog/dialog.component";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-welcome-page',
@@ -26,7 +27,7 @@ import {DialogComponent} from "./dialog/dialog.component";
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule, FormsModule, NgOptimizedImage],
+    MatDialogModule, FormsModule, NgOptimizedImage, FooterComponent],
   templateUrl: './welcome-page.component.html',
   styleUrl: './welcome-page.component.css'
 })
