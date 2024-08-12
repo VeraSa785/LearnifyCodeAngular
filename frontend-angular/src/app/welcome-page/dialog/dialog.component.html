@@ -13,7 +13,7 @@
     </mat-form-field>
 
     <!-- Email input field -->
-    <mat-form-field appearance="outline" class="login-input-container input">
+    <mat-form-field appearance="outline" class="login-input-container input email">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" placeholder="Enter your email" required>
       <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
@@ -31,7 +31,7 @@
     </mat-form-field>
 
     <!-- Repeat Password input field -->
-    <mat-form-field appearance="outline" class="login-input-container">
+    <mat-form-field appearance="outline" class="login-input-container password">
       <mat-label>Repeat Password</mat-label>
       <input matInput formControlName="repeatPassword" placeholder="Enter your password again" type="password" required>
       <mat-error *ngIf="form.get('repeatPassword')?.invalid && form.get('repeatPassword')?.touched">

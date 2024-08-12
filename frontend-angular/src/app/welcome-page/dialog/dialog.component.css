@@ -11,11 +11,15 @@
 }
 
 .username {
-  padding-top: 5px;
+  padding-top: 10px;
+}
+
+.email {
+  padding-top: 10px;
 }
 
 .password {
-  padding-bottom: 5px;
+  padding-top: 10px;
 }
 
 .primary-styled-button {
