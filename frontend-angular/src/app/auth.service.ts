@@ -61,12 +61,11 @@ export class AuthService {
         map(response => {
           if (response && response.idToken) {
 
-            // Assuming a successful response includes a UID, adjust as per your actual response structure
             const user: User = {
               email,
-              username: "Test Username",  // !!!hardcoded data
-              uid: 'Fetched UID',  // !!!hardcoded data
-              avatarUrl: '/avatars/avatar_6.png' // !!!hardcoded data
+              username: response.name,
+              uid: response.uid,
+              avatarUrl: response.avatar_url
             };
 
             localStorage.setItem('currentUser', JSON.stringify(user));
