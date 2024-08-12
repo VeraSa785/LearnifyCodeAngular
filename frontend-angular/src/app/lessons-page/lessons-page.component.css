@@ -21,13 +21,20 @@
   align-items: center;
   gap: 20px;
   padding: 20px 24px;
+  max-width: 600px;
+  width: 100%;
 }
 
 .main-left-container {
-  /* alignment */
   justify-content: center;
   align-items: center;
   gap: 70px;
+}
+
+.main-left-container img {
+  max-width: 100%;  /* Ensure the image scales to the container's width */
+  height: auto;     /* Maintain the aspect ratio */
+  object-fit: contain; /* Adjust how the image fits inside its container */
 }
 
 .paytone-one-regular {
@@ -45,7 +52,7 @@
   color: #dbdd80;
 }
 
-/*Styling for the right side*/
+/* Styling for the right side */
 .main-right-container {
   align-items: center;
 }
@@ -66,8 +73,79 @@
 
 .lessons-buttons button {
   width: 100%;
+  min-width: 350px;
+  height: fit-content;
   padding: 15px;
   background-color: #dbdd80;
   font-family: 'Comfortaa', sans-serif;
   color: #494f56;
+  font-size: 18px;
+  text-align: center;
+  word-wrap: break-word;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .main-component {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .main-left-container, .main-right-container {
+    max-width: 100%;
+    padding: 10px 20px;
+  }
+
+  .main-left-container img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover; /* Adjust to cover, contain, or scale-down depending on the desired effect */
+  }
+
+  .paytone-one-regular {
+    font-size: 60px;
+  }
+
+  .paytone-two-regular {
+    font-size: 30px;
+  }
+
+  .lessons-buttons {
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .lessons-buttons button {
+    padding: 10px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-component {
+    padding: 2px;
+  }
+
+  .main-left-container img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover; /* Further scale-down the image or adjust fitting */
+  }
+
+  .paytone-one-regular {
+    font-size: 40px;
+  }
+
+  .paytone-two-regular {
+    font-size: 24px;
+  }
+
+  .lessons-buttons {
+    padding: 10px;
+  }
+
+  .lessons-buttons button {
+    font-size: 14px;
+    padding: 8px;
+  }
 }
