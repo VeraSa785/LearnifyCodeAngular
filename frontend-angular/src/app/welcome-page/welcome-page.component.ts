@@ -55,7 +55,7 @@ export class WelcomePageComponent implements OnInit {
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      'email': ['', Validators.required],
+      'email': ['', [Validators.required, Validators.email]],
       'password': ['', Validators.required],
     });
   }
