@@ -27,6 +27,7 @@
   display: flex;
   flex: 1;
   flex-direction: column; /* Change to column for mobile view */
+  margin-bottom: 50px;
 }
 
 .left-side,
