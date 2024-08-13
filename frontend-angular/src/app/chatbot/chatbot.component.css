@@ -22,7 +22,7 @@
 }
 
 .chat-container {
-  max-height: 1000 px;
+  height: 800 px;
   max-width: 600px;
   min-width: 400px;
   margin: 0 auto;
@@ -32,8 +32,8 @@
 }
 
 .messages-list {
-  flex-grow: 2;
-  max-height: 600px;
+  flex-grow: 1;
+  max-height: 400px;
   overflow-y: visible;
   overflow-x: hidden;
   vertical-align: top;

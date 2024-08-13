@@ -31,6 +31,7 @@ const editorHeightStyle = EditorView.theme({
 })
 export class CodeEditorComponent implements AfterViewInit {
   title = 'component-overview';
+  buttonDisabled = false;
 
   @ViewChild('myeditor') myEditor!: ElementRef;
   @Output() codeReviewRequest = new EventEmitter<{ code: string, prompt: string }>(); // EventEmitter to send code and prompt
@@ -44,7 +45,16 @@ export class CodeEditorComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => this.initializeEditor(), 0);
+
+      this.buttonDisabled = true;
+    
+      setTimeout(() => {
+        this.buttonDisabled = false;
+        console.log('Button enabled after loading:', this.buttonDisabled); // Debugging log
+      }, 10000);
+    
     }
+
   }
 
   initializeEditor(): void {
@@ -77,12 +87,21 @@ export class CodeEditorComponent implements AfterViewInit {
   }
 
   reviewCode(): void {
-    if (!this.editorView) {
-      console.error("EditorView is not initialized.");
+    if (!this.editorView || this.buttonDisabled) {
+      console.error("EditorView is not initialized or button is disabled.");
       return;
     }
+    
+    // Disable the button
+    this.buttonDisabled = true;
+
     const code = this.editorView.state.doc.toString(); // Gets the current content of the editor
     const prompt = 'Please review my code and point out what I did good and next steps to master that topic.';
     this.codeReviewRequest.emit({ code, prompt });
+
+    // Re-enable the button after 5 seconds
+    setTimeout(() => {
+      this.buttonDisabled = false;
+    }, 5000); // Adjust the delay as needed
   }
 }

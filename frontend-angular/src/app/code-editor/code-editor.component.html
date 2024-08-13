@@ -3,7 +3,7 @@
     <div #myeditor></div>
   </mat-card-content>
   <div class="button-container">
-    <button mat-raised-button (click)="reviewCode()"  color="primary"
+    <button mat-raised-button (click)="reviewCode()" [disabled]="buttonDisabled"  color="primary"
             class="codereview-button primary-styled-button"
             matTooltip="Your code will be reviewed in the chat"
             aria-label="Button that displays a tooltip when focused or hovered over">Review my code</button>
