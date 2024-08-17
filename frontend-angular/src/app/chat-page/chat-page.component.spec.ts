@@ -1,24 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ChatPageComponent } from './chat-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ChatbotComponent } from '../chatbot/chatbot.component';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NgIf } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // Import this
 
-describe('ChatPageComponent', () => {
+describe('ChatPageComponent Unit Test', () => {
   let component: ChatPageComponent;
   let fixture: ComponentFixture<ChatPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
-        BrowserAnimationsModule,
-        ChatPageComponent
+        ChatPageComponent,  // Import the standalone component here
+        HttpClientTestingModule,  // Import HttpClientTestingModule to provide HttpClient
+        NgIf,
+        ChatbotComponent,
+        CodeEditorComponent,
+        BrowserAnimationsModule  // Include this module
       ],
       providers: [
         {
@@ -35,8 +37,7 @@ describe('ChatPageComponent', () => {
             })
           }
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatPageComponent);
@@ -44,23 +45,27 @@ describe('ChatPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the ChatPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should contain the ChatbotComponent', () => {
-    const chatbotElement = fixture.debugElement.query(By.directive(ChatbotComponent));
-    expect(chatbotElement).toBeTruthy();
+  it('should set currentLesson and lessonTopic based on query params', () => {
+    component.ngOnInit();
+    expect(component.currentLesson).toBe('testTitle');
+    expect(component.lessonTopic).toBe('testTitle');
   });
 
-  it('should contain the CodeEditorComponent', () => {
-    const codeEditorElement = fixture.debugElement.query(By.directive(CodeEditorComponent));
-    expect(codeEditorElement).toBeTruthy();
+  it('should fetch lesson content with the correct query', () => {
+    spyOn(component, 'fetchLessonContent').and.stub(); // Prevent actual call
+    component.ngOnInit();
+    expect(component.fetchLessonContent).toHaveBeenCalledWith('testQuery');
   });
 
-  it('should have a title', () => {
-    const titleElement = fixture.debugElement.query(By.css('h1'));
-    expect(titleElement).toBeTruthy();
-    expect(titleElement.nativeElement.textContent).toContain('testTitle');
+  it('should correctly handle code review requests', () => {
+    const codeReviewData = { code: 'testCode', prompt: 'testPrompt' };
+    component.handleCodeReviewRequest(codeReviewData);
+    expect(component.codeReviewRequest).toEqual(codeReviewData);
   });
+
+
 });

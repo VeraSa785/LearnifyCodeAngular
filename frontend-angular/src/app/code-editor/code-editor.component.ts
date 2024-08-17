@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, ElementRef, Inject, PLATFORM_ID, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ElementRef, Inject, PLATFORM_ID, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { basicSetup } from 'codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { EditorState, Extension } from '@codemirror/state';
@@ -7,9 +7,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import {MatTooltip} from "@angular/material/tooltip";
-
-
+import { MatTooltip } from "@angular/material/tooltip";
 
 // Custom styling for the editor goes here
 const editorHeightStyle = EditorView.theme({
@@ -39,22 +37,19 @@ export class CodeEditorComponent implements AfterViewInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
   ) {}
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => this.initializeEditor(), 0);
-
-      this.buttonDisabled = true;
     
       setTimeout(() => {
         this.buttonDisabled = false;
-        console.log('Button enabled after loading:', this.buttonDisabled); // Debugging log
-      }, 10000);
-    
+        this.cdr.detectChanges(); 
+      }, 1000);
     }
-
   }
 
   initializeEditor(): void {
@@ -65,7 +60,7 @@ export class CodeEditorComponent implements AfterViewInit {
 
       try {
         state = EditorState.create({
-          doc: 'print(\'hello world\')',
+          doc: `print('hello world')`,
           extensions: myExt,
         });
       } catch (e) {
@@ -78,11 +73,11 @@ export class CodeEditorComponent implements AfterViewInit {
           });
           console.log("EditorView initialized:", this.editorView);
         } else {
-          console.error("EditorState is not defined, Make sur codemirror@6.0.1 is installed.");
+          console.error("EditorState is not defined, Make sure codemirror@6.0.1 is installed.");
         }
       }
     } else {
-      console.error("Document is not defined, make sure this is running this in a browser env");
+      console.error("Document is not defined, make sure this is running this in a browser environment");
     }
   }
 
@@ -102,6 +97,7 @@ export class CodeEditorComponent implements AfterViewInit {
     // Re-enable the button after 5 seconds
     setTimeout(() => {
       this.buttonDisabled = false;
+      this.cdr.detectChanges(); // Re-enable detection after button is enabled
     }, 5000); // Adjust the delay as needed
   }
 }

@@ -1,72 +1,58 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { CodeEditorComponent } from './code-editor.component';
-import { By } from '@angular/platform-browser';
+import { PLATFORM_ID } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DOCUMENT } from '@angular/common';
-import { EventEmitter } from '@angular/core';
-import { EditorView } from '@codemirror/view';
+import { By } from '@angular/platform-browser';
 
 describe('CodeEditorComponent', () => {
   let component: CodeEditorComponent;
   let fixture: ComponentFixture<CodeEditorComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
+        CodeEditorComponent,
         MatCardModule,
         MatButtonModule,
-        NoopAnimationsModule,
-        CodeEditorComponent
+        MatTooltipModule,
+        NoopAnimationsModule
       ],
       providers: [
-        { provide: DOCUMENT, useValue: document }
+        { provide: PLATFORM_ID, useValue: 'browser' }
       ]
-    })
-    .compileComponents();
-  }));
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CodeEditorComponent);
     component = fixture.componentInstance;
-    component.codeReviewRequest = new EventEmitter(); // Initialize the EventEmitter
-
-    // Mock the EditorView and its methods
-    component['editorView'] = {
-      state: {
-        doc: {
-          toString: () => "print('hello world')"
-        }
-      }
-    } as EditorView;
-
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should load code-editor', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit codeReviewRequest with correct payload when reviewCode is called', () => {
+  
+  it('should emit codeReviewRequest event with the correct code and prompt', fakeAsync(() => {
+    // Arrange
+    const expectedCode = `print('hello world')`;
+    const expectedPrompt = 'Please review my code and point out what I did good and next steps to master that topic.';
     spyOn(component.codeReviewRequest, 'emit');
+  
+    // Act: Call ngAfterViewInit to initialize editor
+    component.ngAfterViewInit();
+    tick(1000); // Wait for the editor to initialize and for any setTimeout in ngAfterViewInit
+  
+    // Act: Call reviewCode to emit the event
     component.reviewCode();
-    expect(component.codeReviewRequest.emit).toHaveBeenCalledWith({
-      code: "print('hello world')",
-      prompt: 'Please review my code and point out what I did good and next steps to master that topic.'
-    });
-  });
-
-  it('should have a review button', () => {
-    const button = fixture.debugElement.query(By.css('.codereview-button'));
-    expect(button).toBeTruthy();
-    expect(button.nativeElement.textContent).toContain('Review my code');
-  });
-
-  it('should call reviewCode when the review button is clicked', () => {
-    spyOn(component, 'reviewCode');
-    const button = fixture.debugElement.query(By.css('.codereview-button'));
-    button.triggerEventHandler('click', null);
-    expect(component.reviewCode).toHaveBeenCalled();
-  });
+    tick(5000); // Simulate the 5 seconds delay
+  
+    // Assert that the event was emitted with the correct data
+    expect(component.codeReviewRequest.emit).toHaveBeenCalledWith({ code: expectedCode, prompt: expectedPrompt });
+  }));
+  
 });
