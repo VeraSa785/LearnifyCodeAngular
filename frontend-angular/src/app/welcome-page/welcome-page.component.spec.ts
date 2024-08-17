@@ -21,7 +21,7 @@ describe('WelcomePageComponent', () => {
 
   beforeEach(async () => {
     authServiceStub = {
-      login: (data: any) => true
+      // login: (data: any) => true
     };
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
